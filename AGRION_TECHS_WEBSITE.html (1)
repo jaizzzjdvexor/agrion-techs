@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGRION TECHS</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #F1F8F0;
+    color: #183B25;
+}
+
+header {
+    background: #14532D;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 30px;
+}
+
+header p {
+    margin-top: 7px;
+}
+
+nav {
+    background: #FFFFFF;
+    padding: 14px;
+    text-align: center;
+}
+
+nav a {
+    color: #14532D;
+    text-decoration: none;
+    margin: 12px;
+    font-weight: bold;
+}
+
+.hero {
+    text-align: center;
+    padding: 55px 20px;
+    background: #E2F0E3;
+}
+
+.hero h2 {
+    color: #14532D;
+    font-size: 32px;
+}
+
+.hero p {
+    margin: 15px auto;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+section {
+    padding: 30px 20px;
+    max-width: 850px;
+    margin: auto;
+}
+
+.panel {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    margin-top: 20px;
+    box-shadow: 0 3px 12px #00000012;
+}
+
+input {
+    margin: 18px 0;
+    max-width: 100%;
+}
+
+button {
+    background: #14532D;
+    color: white;
+    border: none;
+    padding: 13px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #2E8B57;
+}
+
+#preview {
+    display: none;
+    width: 220px;
+    max-width: 100%;
+    margin: 15px auto;
+    border-radius: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+footer {
+    background: #14532D;
+    color: white;
+    text-align: center;
+    padding: 22px;
+    margin-top: 30px;
+}
+
+@media(max-width: 500px) {
+    .hero h2 { font-size: 26px; }
+    nav a { margin: 6px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌱 AGRION TECHS</h1>
+    <p>SMART AGRICULTURE • SMART FUTURE</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#detect">AI Detection</a>
+    <a href="#about">About</a>
+</nav>
+
+<div class="hero" id="home">
+    <h2>Grow Smarter. Farm Better.</h2>
+    <p>
+        Discover smarter agriculture with AI-powered crop disease
+        identification and useful plant health information.
+    </p>
+    <a href="#detect">
+        <button>Explore AI Detection</button>
+    </a>
+</div>
+
+<section id="detect">
+    <div class="panel">
+        <h2>🌿 AI Crop Disease Detection</h2>
+        <p>Upload a clear crop leaf photograph to get an AI prediction.</p>
+
+        <input type="file" id="leafImage" accept="image/jpeg,image/png,image/webp">
+
+        <img id="preview" alt="Selected leaf preview">
+
+        <br>
+        <button onclick="detectDisease()">Detect Disease</button>
+
+        <div id="result"></div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="panel">
+        <h2>About Our Project</h2>
+        <p><b>Project:</b> AGRION TECHS</p>
+        <p><b>AI System:</b> JD-CropAI</p>
+        <p><b>Project Type:</b> Science Expo Project</p>
+        <p><b>Developed by:</b></p>
+        <p>• Jaidev J</p>
+        <p>• Puvi Amuthan S</p>
+        <p><b>Features:</b></p>
+        <p>• AI crop disease prediction</p>
+        <p>• Crop disease information</p>
+        <p>• Symptoms and prevention guidance</p>
+        <p>• Smart agriculture awareness</p>
+    </div>
+</section>
+
+<footer>
+    <p>AGRION TECHS | Grow Smarter. Farm Better.</p>
+    <p>Science Expo Project</p>
+</footer>
+
+<script>
+const API_BASE = "https://ribbon-badge-cost-interpretation.trycloudflare.com";
+
+const imageInput = document.getElementById("leafImage");
+const preview = document.getElementById("preview");
+const result = document.getElementById("result");
+
+imageInput.addEventListener("change", function() {
+    const file = this.files[0];
+
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+        alert("Please select an image below 10 MB.");
+        this.value = "";
+        preview.style.display = "none";
+        return;
+    }
+
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        alert("Please select a JPG, PNG or WEBP image.");
+        this.value = "";
+        preview.style.display = "none";
+        return;
+    }
+
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+    result.textContent = "";
+});
+
+async function detectDisease() {
+    const file = imageInput.files[0];
+
+    if (!file) {
+        alert("Please upload a leaf image first!");
+        return;
+    }
+
+    if (API_BASE === "YOUR_API_URL") {
+        result.textContent =
+            "AI backend connection will be configured in the next step.";
+        return;
+    }
+
+    result.textContent = "Analysing image... Please wait.";
+
+    try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch(API_BASE + "/predict", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || "Prediction failed.");
+        }
+
+        result.replaceChildren();
+
+        const fields = [
+            ["Crop", data.crop],
+            ["AI Prediction", data.prediction],
+            ["Confidence", data.confidence + "%"],
+            ["Symptoms", data.symptoms],
+            ["Causes", data.causes],
+            ["Prevention", data.prevention],
+            ["Care", data.care],
+            ["Warning", data.warning]
+        ];
+
+        fields.forEach(([label, value]) => {
+            const p = document.createElement("p");
+            const strong = document.createElement("strong");
+            strong.textContent = label + ": ";
+            p.append(strong, document.createTextNode(value ?? "Not available"));
+            result.appendChild(p);
+        });
+
+    } catch (error) {
+        result.textContent = "Connection error: " + error.message;
+    }
+}
+</script>
+
+</body>
+</html>

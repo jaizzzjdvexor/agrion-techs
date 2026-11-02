@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Run Beyond — Endless Runner</title>
+<style>
+:root{--ink:#f5f7ff;--glass:rgba(8,18,38,.72);--cyan:#6cf4ff;--gold:#ffd66b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07152d;color:var(--ink);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;touch-action:none}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#hud{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;pointer-events:none}
+.pill{background:var(--glass);border:1px solid #ffffff25;border-radius:15px;padding:9px 13px;backdrop-filter:blur(10px);box-shadow:0 8px 25px #0003;font-size:13px;font-weight:700;letter-spacing:.3px}
+.pill strong{display:block;font-size:20px;color:var(--cyan);line-height:1.2}
+#rightHud{text-align:right}#levelName{color:var(--gold)}
+#progressWrap{position:absolute;top:76px;left:14px;right:14px;height:5px;background:#ffffff24;border-radius:99px;overflow:hidden}
+#progress{height:100%;width:0;background:linear-gradient(90deg,#62efff,#ffe079);border-radius:99px;transition:width .15s}
+.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(180deg,#06152a44,#06152acc);backdrop-filter:blur(4px)}
+.panel{width:min(500px,100%);padding:28px 24px;border:1px solid #ffffff35;border-radius:25px;background:linear-gradient(145deg,rgba(17,39,70,.95),rgba(5,16,37,.95));box-shadow:0 25px 90px #0008;text-align:center}
+.eyebrow{font-size:11px;font-weight:900;letter-spacing:3px;color:var(--cyan);text-transform:uppercase}
+h1{font-size:clamp(35px,8vw,56px);line-height:.98;margin:12px 0 10px;letter-spacing:-2px}
+h1 span{color:var(--gold)}p{color:#c6d7ef;line-height:1.55;margin:10px 0 20px}
+button{border:0;border-radius:14px;padding:14px 20px;font:800 15px inherit;font-family:inherit;cursor:pointer;color:#07172c;background:linear-gradient(100deg,#6cf4ff,#a2fff0);box-shadow:0 7px 0 #268c9a;min-width:150px}
+button:active{transform:translateY(3px);box-shadow:0 4px 0 #268c9a}
+.secondary{background:#ffffff12;color:white;border:1px solid #ffffff35;box-shadow:none}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0 20px}
+.controls div{padding:10px 5px;background:#ffffff0b;border:1px solid #ffffff15;border-radius:12px;font-size:12px;color:#d7e5f7}
+.key{display:block;font-size:19px;color:white;font-weight:900;margin-bottom:4px}
+#toast{position:absolute;top:104px;left:50%;transform:translateX(-50%);padding:10px 16px;background:#081b32dd;border:1px solid #ffffff2b;border-radius:99px;font-size:13px;font-weight:800;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+#mobileControls{position:absolute;bottom:18px;left:0;right:0;display:flex;justify-content:space-between;padding:0 18px;pointer-events:none}
+.moveBtn{pointer-events:auto;min-width:60px;width:60px;height:60px;padding:0;border-radius:20px;background:#071a30aa;border:1px solid #ffffff4c;color:white;box-shadow:inset 0 0 20px #ffffff0a;font-size:24px;backdrop-filter:blur(8px)}
+#jumpBtn{width:84px;border-radius:22px;background:#6cf4ffdd;color:#062036;font-size:12px;letter-spacing:1px}
+.hidden{display:none!important}
+.small{font-size:11px;color:#92abc9;margin-top:12px}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="hud" class="hidden">
+  <div class="pill">DISTANCE<strong id="distance">0 m</strong></div>
+  <div class="pill">COINS<strong id="coins">0</strong></div>
+  <div class="pill" id="rightHud">LEVEL <strong id="levelName">1 · GREEN TRAIL</strong></div>
+</div>
+<div id="progressWrap" class="hidden"><div id="progress"></div></div>
+<div id="toast"></div>
+<div id="mobileControls" class="hidden">
+  <button class="moveBtn" id="leftBtn" aria-label="Move left">◀</button>
+  <button class="moveBtn" id="jumpBtn">JUMP ⤴</button>
+  <button class="moveBtn" id="rightBtn" aria-label="Move right">▶</button>
+</div>
+<div id="start" class="overlay">
+  <div class="panel">
+    <div class="eyebrow">An endless adventure</div>
+    <h1>RUN <span>BEYOND</span></h1>
+    <p>Play as a fearless boy sprinting through changing worlds. Dodge barriers, leap over gaps, collect coins, and survive as the run gets faster!</p>
+    <div class="controls">
+      <div><span class="key">← →</span>Switch lanes</div>
+      <div><span class="key">SPACE / ↑</span>Jump</div>
+      <div><span class="key">Swipe</span>On mobile</div>
+    </div>
+    <div class="actions"><button id="playBtn">START RUN ▶</button></div>
+    <div class="small">3 lanes · Smooth 3D-style graphics · 5 levels · Best score saved</div>
+  </div>
+</div>
+<div id="gameOver" class="overlay hidden">
+  <div class="panel">
+    <div class="eyebrow">Run complete</div>
+    <h1 id="overTitle">KEEP <span>GOING</span></h1>
+    <p id="overText">Every run makes you stronger.</p>
+    <div class="controls">
+      <div>Distance<span class="key" id="finalDistance">0 m</span></div>
+      <div>Coins<span class="key" id="finalCoins">0</span></div>
+      <div>Best<span class="key" id="bestScore">0 m</span></div>
+    </div>
+    <div class="actions"><button id="againBtn">RUN AGAIN ↻</button><button class="secondary" id="menuBtn">MENU</button></div>
+  </div>
+</div>
+<script>
+(() => {
+const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');
+const $=id=>document.getElementById(id);
+let W=innerWidth,H=innerHeight,dpr=1;
+function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+addEventListener('resize',resize);resize();
+const levels=[
+ {name:'GREEN TRAIL',sky1:'#69d9ee',sky2:'#d5f7e8',ground:'#267c58',edge:'#14543f',accent:'#ffda6b',speed:0.31},
+ {name:'DUSTY CANYON',sky1:'#f3a86f',sky2:'#ffe4a7',ground:'#b86b4c',edge:'#743e3a',accent:'#fff0a4',speed:0.36},
+ {name:'FROST PEAK',sky1:'#80c9f5',sky2:'#e9f9ff',ground:'#8ac7d8',edge:'#477d9a',accent:'#fff',speed:0.39},
+ {name:'NEON CITY',sky1:'#171e55',sky2:'#6d3c94',ground:'#262d58',edge:'#101a3d',accent:'#6cf4ff',speed:0.43},
+ {name:'LAVA RUN',sky1:'#451a3b',sky2:'#ed704b',ground:'#4b283b',edge:'#25192f',accent:'#ffd66b',speed:0.47}
+];
+let running=false,gameStarted=false,last=0,time=0,distance=0,coins=0,worldZ=0,speed=.31,lane=1,targetLane=1,jump=0,vy=0,obstacles=[],pickups=[],particles=[],spawn=0,coinSpawn=0,toastTimer=0,level=0,shake=0;
+let best=Number(localStorage.getItem('runBeyondBest')||0);
+const boy={x:0,y:0,lean:0,step:0};
+function laneX(i){return (i-1)*Math.min(W*.22,150)}
+function horizon(){return H*.31}
+function groundY(){return H*.84}
+function project(z,laneIdx=1){let p=1-z;let y=horizon()+p*p*(groundY()-horizon());let spread=(W*.43)*(.17+p*.83);return {x:W/2+laneX(laneIdx)*(.25+p*.75),y,scale:.18+p*1.45,spread,p}}
+function levelFor(d){return Math.min(4,Math.floor(d/220))}
+function toast(s){$('toast').textContent=s;$('toast').style.opacity=1;toastTimer=1.5}
+function reset(){distance=0;coins=0;worldZ=0;lane=1;targetLane=1;jump=0;vy=0;obstacles=[];pickups=[];particles=[];spawn=.7;coinSpawn=.3;speed=levels[0].speed;level=0;shake=0;boy.step=0}
+function start(){reset();running=true;gameStarted=true;$('start').classList.add('hidden');$('gameOver').classList.add('hidden');$('hud').classList.remove('hidden');$('progressWrap').classList.remove('hidden');$('mobileControls').classList.remove('hidden');toast('LEVEL 1 — GREEN TRAIL')}
+function end(){running=false;best=Math.max(best,Math.floor(distance));localStorage.setItem('runBeyondBest',best);$('finalDistance').textContent=Math.floor(distance)+' m';$('finalCoins').textContent=coins;$('bestScore').textContent=best+' m';$('overTitle').innerHTML=distance>best*.8?'GREAT <span>RUN!</span>':'KEEP <span>GOING</span>';$('overText').textContent=distance>220?'You made it through '+(level+1)+' world'+(level?'s':'')+'. Ready for another challenge?':'The trail is tough. Learn the rhythm, switch lanes, and jump at the right time!';$('gameOver').classList.remove('hidden');$('mobileControls').classList.add('hidden')}
+function move(d){if(!running)return;targetLane=Math.max(0,Math.min(2,targetLane+d))}
+function jumpNow(){if(running&&jump<=0){vy=H*.75;jump=1}}
+addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowUp',' ','Spacebar'].includes(e.key))e.preventDefault();if(e.key==='ArrowLeft'||e.key==='a')move(-1);if(e.key==='ArrowRight'||e.key==='d')move(1);if(e.key==='ArrowUp'||e.key===' '||e.key==='w')jumpNow();if(!running&&(e.key==='Enter'))start()});
+$('playBtn').onclick=start;$('againBtn').onclick=start;$('menuBtn').onclick=()=>{$('gameOver').classList.add('hidden');$('start').classList.remove('hidden')};
+$('leftBtn').onpointerdown=()=>move(-1);$('rightBtn').onpointerdown=()=>move(1);$('jumpBtn').onpointerdown=jumpNow;
+let touchX=0,touchY=0;canvas.addEventListener('touchstart',e=>{touchX=e.changedTouches[0].clientX;touchY=e.changedTouches[0].clientY},{passive:true});
+canvas.addEventListener('touchend',e=>{if(!running)return;let dx=e.changedTouches[0].clientX-touchX,dy=e.changedTouches[0].clientY-touchY;if(Math.abs(dx)>35&&Math.abs(dx)>Math.abs(dy))move(dx>0?1:-1);else if(dy<-25)jumpNow()},{passive:true});
+function rounded(x,y,w,h,r,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()}
+function drawBackground(lv){
+ let g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,lv.sky1);g.addColorStop(1,lv.sky2);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ // distant mountains
+ ctx.fillStyle='#ffffff24';ctx.beginPath();ctx.moveTo(0,horizon()+30);for(let x=0;x<=W+80;x+=80)ctx.lineTo(x,horizon()-Math.sin(x*.013+time*.04)*38-35);ctx.lineTo(W,horizon()+80);ctx.closePath();ctx.fill();
+ // trees / city silhouettes
+ for(let i=0;i<14;i++){let x=((i*173-worldZ*22)%(W+180)+W+180)%(W+180)-70;let y=horizon()+15+(i%3)*7;let s=.5+(i%4)*.14;
+ if(level===3){ctx.fillStyle='#17183e99';ctx.fillRect(x,y-70*s,34*s,95*s);for(let k=0;k<3;k++)ctx.fillRect(x+5*s,y-58*s+k*18*s,5*s,5*s)}
+ else {ctx.fillStyle=lv.edge+'aa';ctx.beginPath();ctx.moveTo(x,y+25*s);ctx.lineTo(x+19*s,y-45*s);ctx.lineTo(x+38*s,y+25*s);ctx.fill();ctx.fillRect(x+16*s,y+10*s,6*s,24*s)}
+ }
+ // track trapezoid
+ let hy=horizon(),gy=H*1.03;ctx.fillStyle=lv.edge;ctx.beginPath();ctx.moveTo(W*.42,hy);ctx.lineTo(W*.58,hy);ctx.lineTo(W*1.08,gy);ctx.lineTo(-W*.08,gy);ctx.closePath();ctx.fill();
+ ctx.fillStyle=lv.ground;ctx.beginPath();ctx.moveTo(W*.435,hy);ctx.lineTo(W*.565,hy);ctx.lineTo(W*1.0,gy);ctx.lineTo(0,gy);ctx.closePath();ctx.fill();
+ // lane dividers, moving dashes
+ for(let j=1;j<=2;j++){let topX=W/2+(j-1.5)*W*.043,bottomX=W/2+(j-1.5)*W*.31;ctx.strokeStyle='#ffffff65';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(topX,hy);ctx.lineTo(bottomX,gy);ctx.stroke()}
+ for(let i=0;i<18;i++){let z=((i/18+worldZ*.075)%1);let p=z,y=hy+p*p*(gy-hy),half=(W*.07+p*W*.48);ctx.fillStyle='#ffffff'+(Math.floor(20+p*45).toString(16).padStart(2,'0'));ctx.fillRect(W/2-half,y,half*2,Math.max(1,p*3))}
+ // edge glow
+ ctx.strokeStyle=lv.accent+'aa';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(W*.435,hy);ctx.lineTo(0,gy);ctx.moveTo(W*.565,hy);ctx.lineTo(W,gy);ctx.stroke();
+}
+function drawCoin(o){let pr=project(o.z,o.lane);let r=9*pr.scale;ctx.save();ctx.translate(pr.x,pr.y-r*1.7);ctx.rotate(Math.sin(time*6+o.z*10)*.2);ctx.fillStyle='#a76b13';ctx.beginPath();ctx.ellipse(0,0,r*0.82,r,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=levels[level].accent;ctx.beginPath();ctx.ellipse(0,0,r*.58,r*.8,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff6b4';ctx.fillRect(-r*.12,-r*.55,r*.22,r*1.1);ctx.restore()}
+function drawObstacle(o){let pr=project(o.z,o.lane),x=pr.x,y=pr.y,s=pr.scale;
+ if(o.type==='gap'){let w=50*s;ctx.fillStyle='#10182a';ctx.beginPath();ctx.moveTo(x-w,y-2);ctx.lineTo(x+w,y-2);ctx.lineTo(x+w*1.4,y+10*s);ctx.lineTo(x-w*1.4,y+10*s);ctx.closePath();ctx.fill();ctx.strokeStyle=levels[level].accent;ctx.lineWidth=2*s;ctx.stroke()}
+ else if(o.type==='barrier'){let w=30*s,h=32*s;ctx.fillStyle='#101b2c';ctx.fillRect(x-w/2+3*s,y-h+4*s,w,h);ctx.fillStyle='#f5a34f';ctx.fillRect(x-w/2,y-h,w,h);ctx.fillStyle='#fff0c4';ctx.fillRect(x-w/2,y-h+5*s,w,h*.2);ctx.strokeStyle='#773e32';ctx.lineWidth=2*s;ctx.strokeRect(x-w/2,y-h,w,h)}
+ else {let w=25*s,h=48*s;ctx.fillStyle='#6b243c';ctx.beginPath();ctx.moveTo(x,y-h);ctx.lineTo(x+w,y);ctx.lineTo(x-w,y);ctx.closePath();ctx.fill();ctx.strokeStyle='#ffcb8a';ctx.lineWidth=2*s;ctx.stroke()}
+}
+function drawBoy(){
+ let x=W/2+laneX(lane)*.92,y=groundY()-jump*1.25,scale=Math.min(W,H)/700;
+ let s=Math.max(.7,Math.min(1.15,scale));boy.step+=running?.18:0;
+ ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.rotate((targetLane-lane)*-.12);
+ // shadow
+ ctx.fillStyle='#071a2a55';ctx.beginPath();ctx.ellipse(0,5+jump*.5,24+jump*.12,7,0,0,Math.PI*2);ctx.fill();
+ // legs running
+ let swing=Math.sin(boy.step)*9;
+ ctx.strokeStyle='#182c50';ctx.lineWidth=10;ctx.lineCap='round';
+ ctx.beginPath();ctx.moveTo(-7,-26);ctx.lineTo(-10+swing*.6,-9);ctx.lineTo(-14+swing,-1);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(7,-26);ctx.lineTo(10-swing*.6,-10);ctx.lineTo(14-swing,0);ctx.stroke();
+ // shoes
+ rounded(-23+swing,-5,16,7,3,'#f6f8ff');rounded(8-swing,-5,16,7,3,'#6cf4ff');
+ // torso / hoodie
+ let body=ctx.createLinearGradient(-15,-65,16,-25);body.addColorStop(0,'#35d6dc');body.addColorStop(1,'#087eab');
+ rounded(-15,-62,30,38,9,body);
+ // arms
+ ctx.strokeStyle='#e9a979';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(-12,-54);ctx.lineTo(-21,-39+Math.sin(boy.step)*5);ctx.stroke();ctx.beginPath();ctx.moveTo(12,-54);ctx.lineTo(21,-41-Math.sin(boy.step)*5);ctx.stroke();
+ // neck and face
+ rounded(-5,-70,10,12,4,'#c98257');rounded(-15,-91,30,27,10,'#e8ac7c');
+ // hair
+ ctx.fillStyle='#17233a';ctx.beginPath();ctx.moveTo(-16,-78);ctx.quadraticCurveTo(-22,-101,-4,-101);ctx.quadraticCurveTo(12,-105,17,-88);ctx.lineTo(8,-91);ctx.lineTo(1,-96);ctx.lineTo(-4,-89);ctx.lineTo(-16,-88);ctx.closePath();ctx.fill();
+ // face details
+ ctx.fillStyle='#18223b';ctx.beginPath();ctx.arc(5,-81,2,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#9a4e46';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(2,-73);ctx.lineTo(8,-73);ctx.stroke();
+ // backpack
+ rounded(10,-58,10,23,4,'#ffb34c');
+ ctx.restore();
+}
+function spawnObstacle(){let ln=Math.floor(Math.random()*3),r=Math.random(),type=r<.48?'barrier':r<.77?'spike':'gap';obstacles.push({lane:ln,z:1,type,hit:false})}
+function spawnCoins(){let ln=Math.floor(Math.random()*3);for(let i=0;i<5;i++)pickups.push({lane:ln,z:1+i*.105,got:false})}
+function burst(x,y){for(let i=0;i<12;i++)particles.push({x,y,vx:(Math.random()-.5)*170,vy:(Math.random()-.8)*150,life:.6})}
+function update(dt){
+ time+=dt;if(!running)return;
+ let newLevel=levelFor(distance);if(newLevel!==level){level=newLevel;toast('LEVEL '+(level+1)+' — '+levels[level].name);shake=5}
+ speed=levels[level].speed+Math.min(.19,distance/2400);distance+=dt*speed*43;worldZ+=dt*speed*2.6;
+ lane+=(targetLane-lane)*Math.min(1,dt*12);if(jump>0){jump+=vy*dt/H;vy-=H*2.05*dt;if(jump<=0){jump=0;vy=0}}
+ spawn-=dt;coinSpawn-=dt;if(spawn<=0){spawnObstacle();spawn=Math.max(.52,1.1-distance/1600)+Math.random()*.45}if(coinSpawn<=0){spawnCoins();coinSpawn=2.5+Math.random()*1.6}
+ for(let o of obstacles){o.z-=dt*speed*1.55;if(!o.hit&&o.z<.105&&o.z>-.01&&o.lane===Math.round(lane)){
+   let safe=(o.type==='gap'&&jump>.23)||(o.type!=='gap'&&jump>.42);
+   if(!safe){o.hit=true;shake=12;burst(W/2+laneX(lane),groundY()-40);end();return}
+ }}
+ obstacles=obstacles.filter(o=>o.z>-.12&&!o.hit);
+ for(let c of pickups){c.z-=dt*speed*1.55;if(!c.got&&c.z<.11&&c.z>-.02&&c.lane===Math.round(lane)){c.got=true;coins++;burst(W/2+laneX(lane),groundY()-65)}}
+ pickups=pickups.filter(c=>c.z>-.1&&!c.got);
+ particles.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=220*dt;p.life-=dt});particles=particles.filter(p=>p.life>0);
+ if(toastTimer>0){toastTimer-=dt;if(toastTimer<=0)$('toast').style.opacity=0}
+ $('distance').textContent=Math.floor(distance)+' m';$('coins').textContent=coins;$('levelName').textContent=(level+1)+' · '+levels[level].name;$('progress').style.width=((distance%220)/220*100)+'%';
+}
+function render(){
+ let lv=levels[level];ctx.save();if(shake>0){ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);shake*=.86;if(shake<.3)shake=0}
+ drawBackground(lv);
+ // subtle floating specks
+ if(level>=3){for(let i=0;i<25;i++){let x=(i*97+time*18)%(W),y=(i*53+Math.sin(time+i)*20)%(H*.7);ctx.fillStyle=lv.accent+'88';ctx.fillRect(x,y,2,2)}}
+ obstacles.slice().sort((a,b)=>b.z-a.z).forEach(drawObstacle);
+ pickups.slice().sort((a,b)=>b.z-a.z).forEach(drawCoin);
+ // dust behind boy
+ if(running&&Math.random()<.5)particles.push({x:W/2+laneX(lane)+(Math.random()-.5)*20,y:groundY()-7,vx:(Math.random()-.5)*20,vy:-Math.random()*35,life:.3});
+ drawBoy();
+ particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/.6);ctx.fillStyle='#ffe6a0';ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1});
+ // vignette
+ let vg=ctx.createRadialGradient(W/2,H*.55,Math.min(W,H)*.2,W/2,H*.55,Math.max(W,H)*.75);vg.addColorStop(0,'#00000000');vg.addColorStop(1,'#0613264d');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+ ctx.restore();
+}
+function frame(ts){let dt=Math.min(.035,(ts-last)/1000||0);last=ts;update(dt);render();requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

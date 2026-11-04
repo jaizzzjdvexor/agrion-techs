@@ -18,8 +18,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL_PATH = "/content/AGRION_RENDER/JD_CropAI_Model.pth"
-DATABASE_PATH = "/content/AGRION_RENDER/JD_CropAI_Disease_Database.json"
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "JD_CropAI_Model.pth")
+DATABASE_PATH = os.path.join(os.path.dirname(__file__), "JD_CropAI_Disease_Database.json")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

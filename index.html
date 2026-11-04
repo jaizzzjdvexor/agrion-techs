@@ -302,7 +302,90 @@ async function detectDisease() {
         result.textContent = "Connection error: " + error.message;
     }
 }
-</script>
+const websiteTranslations = {
+  en: {
+    language: "Language:",
+    tagline: "SMART AGRICULTURE • SMART FUTURE",
+    home: "Home",
+    detection: "AI Detection",
+    about: "About",
+    hero: "Grow Smarter. Farm Better.",
+    description: "Discover smarter agriculture with AI-powered crop disease identification and useful plant health information.",
+    explore: "Explore AI Detection",
+    detectTitle: "🌿 AI Crop Disease Detection",
+    upload: "Upload a clear crop leaf photograph to get an AI prediction.",
+    detectButton: "Detect Disease",
+    aboutTitle: "About Our Project",
+    footer: "AGRION TECHS | Grow Smarter. Farm Better.",
+    footer2: "Science Expo Project"
+  },
 
+  ta: {
+    language: "மொழி:",
+    tagline: "ஸ்மார்ட் விவசாயம் • சிறந்த எதிர்காலம்",
+    home: "முகப்பு",
+    detection: "AI கண்டறிதல்",
+    about: "எங்களைப் பற்றி",
+    hero: "புத்திசாலித்தனமாக வளர்ப்போம். சிறப்பாக விவசாயம் செய்வோம்.",
+    description: "செயற்கை நுண்ணறிவு மூலம் பயிர் நோய்களைக் கண்டறிந்து தாவர ஆரோக்கியத் தகவல்களைப் பெறுங்கள்.",
+    explore: "AI கண்டறிதலைப் பார்க்க",
+    detectTitle: "🌿 AI பயிர் நோய் கண்டறிதல்",
+    upload: "AI கணிப்பைப் பெற பயிரின் இலையைத் தெளிவாகப் புகைப்படம் எடுத்து பதிவேற்றவும்.",
+    detectButton: "நோயைக் கண்டறி",
+    aboutTitle: "எங்கள் திட்டத்தைப் பற்றி",
+    footer: "AGRION TECHS | புத்திசாலித்தனமாக வளர்ப்போம்.",
+    footer2: "அறிவியல் கண்காட்சி திட்டம்"
+  },
+
+  hi: {
+    language: "भाषा:",
+    tagline: "स्मार्ट कृषि • बेहतर भविष्य",
+    home: "होम",
+    detection: "AI पहचान",
+    about: "हमारे बारे में",
+    hero: "समझदारी से उगाएँ। बेहतर खेती करें।",
+    description: "AI की मदद से फसल रोगों की पहचान करें और पौधों के स्वास्थ्य की उपयोगी जानकारी पाएँ।",
+    explore: "AI पहचान देखें",
+    detectTitle: "🌿 AI फसल रोग पहचान",
+    upload: "AI अनुमान पाने के लिए फसल की पत्ती की साफ तस्वीर अपलोड करें।",
+    detectButton: "रोग पहचानें",
+    aboutTitle: "हमारी परियोजना के बारे में",
+    footer: "AGRION TECHS | समझदारी से उगाएँ। बेहतर खेती करें।",
+    footer2: "विज्ञान प्रदर्शनी परियोजना"
+  }
+};
+
+function applyWebsiteLanguage() {
+  const requested = document.getElementById("languageSelect").value;
+  const t = websiteTranslations[requested] || websiteTranslations.en;
+
+  document.querySelector('label[for="languageSelect"]').textContent = "🌐 " + t.language;
+  document.querySelector("header p").textContent = t.tagline;
+
+  const links = document.querySelectorAll("nav a");
+  links[0].textContent = t.home;
+  links[1].textContent = t.detection;
+  links[2].textContent = t.about;
+
+  document.querySelector(".hero h2").textContent = t.hero;
+  document.querySelector(".hero p").textContent = t.description;
+  document.querySelector(".hero button").textContent = t.explore;
+
+  document.querySelector("#detect .panel h2").textContent = t.detectTitle;
+  document.querySelector("#detect .panel p").textContent = t.upload;
+  document.querySelector("#detect .panel button").textContent = t.detectButton;
+
+  document.querySelector("#about .panel h2").textContent = t.aboutTitle;
+
+  const footer = document.querySelectorAll("footer p");
+  footer[0].textContent = t.footer;
+  footer[1].textContent = t.footer2;
+
+  document.documentElement.lang = websiteTranslations[requested] ? requested : "en";
+}
+
+document.getElementById("languageSelect").addEventListener("change", applyWebsiteLanguage);
+applyWebsiteLanguage();
+</script>
 </body>
 </html>

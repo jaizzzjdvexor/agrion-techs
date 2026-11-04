@@ -1,0 +1,306 @@
+{
+    "Apple___Apple_scab": {
+        "crop": "Apple",
+        "disease": "Apple scab",
+        "symptoms": "Olive-green to dark scabby spots on leaves and fruit.",
+        "causes": "Venturia inaequalis fungus.",
+        "prevention": "Remove fallen infected leaves and improve airflow.",
+        "care": "Seek local agricultural advice."
+    },
+    "Apple___Black_rot": {
+        "crop": "Apple",
+        "disease": "Black rot",
+        "symptoms": "Dark fruit rot and leaf spots with brown centres.",
+        "causes": "Botryosphaeria obtusa fungus.",
+        "prevention": "Remove mummified fruit and infected plant debris.",
+        "care": "Confirm the disease before treatment."
+    },
+    "Apple___Cedar_apple_rust": {
+        "crop": "Apple",
+        "disease": "Cedar apple rust",
+        "symptoms": "Orange-yellow spots on leaves.",
+        "causes": "Gymnosporangium juniperi-virginianae fungus.",
+        "prevention": "Monitor nearby susceptible juniper hosts.",
+        "care": "Consult an agricultural specialist."
+    },
+    "Apple___healthy": {
+        "crop": "Apple",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain orchard hygiene.",
+        "care": "Continue regular monitoring."
+    },
+    "Blueberry___healthy": {
+        "crop": "Blueberry",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms; leaves appear healthy.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain proper soil conditions and regular monitoring.",
+        "care": "Continue routine crop care."
+    },
+    "Cherry_(including_sour)___Powdery_mildew": {
+        "crop": "Cherry (including sour)",
+        "disease": "Powdery mildew",
+        "symptoms": "White powder-like patches on leaves and shoots.",
+        "causes": "Podosphaera clandestina fungus.",
+        "prevention": "Improve airflow and remove infected plant material.",
+        "care": "Consult a local agricultural expert."
+    },
+    "Cherry_(including_sour)___healthy": {
+        "crop": "Cherry (including sour)",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain good orchard hygiene.",
+        "care": "Continue regular monitoring."
+    },
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": {
+        "crop": "Corn (maize)",
+        "disease": "Cercospora leaf spot Gray leaf spot",
+        "symptoms": "Small rectangular grey or tan spots between leaf veins.",
+        "causes": "Cercospora fungi.",
+        "prevention": "Remove infected crop residue and use resistant varieties.",
+        "care": "Seek local agricultural advice."
+    },
+    "Corn_(maize)___Common_rust_": {
+        "crop": "Corn (maize)",
+        "disease": "Common rust ",
+        "symptoms": "Small reddish-brown raised spots on leaves.",
+        "causes": "Common rust fungus.",
+        "prevention": "Grow resistant varieties and monitor crops regularly.",
+        "care": "Confirm the disease before treatment."
+    },
+    "Corn_(maize)___Northern_Leaf_Blight": {
+        "crop": "Corn (maize)",
+        "disease": "Northern Leaf Blight",
+        "symptoms": "Long, grey-green or tan cigar-shaped lesions on leaves.",
+        "causes": "Exserohilum turcicum fungus.",
+        "prevention": "Use resistant varieties and manage infected crop residue.",
+        "care": "Consult an agricultural specialist."
+    },
+    "Corn_(maize)___healthy": {
+        "crop": "Corn (maize)",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain good crop care and regular monitoring.",
+        "care": "Continue regular monitoring."
+    },
+    "Grape___Black_rot": {
+        "crop": "Grape",
+        "disease": "Black rot",
+        "symptoms": "Brown leaf spots that may develop dark margins; fruit can become affected.",
+        "causes": "Fungal disease caused by Guignardia bidwellii.",
+        "prevention": "Remove infected plant debris and improve air circulation.",
+        "care": "Seek local agricultural guidance for disease management."
+    },
+    "Grape___Esca_(Black_Measles)": {
+        "crop": "Grape",
+        "disease": "Esca (Black Measles)",
+        "symptoms": "Leaf discoloration and streaking; fruit may develop dark spots.",
+        "causes": "A complex of fungal trunk pathogens.",
+        "prevention": "Use healthy planting material and protect pruning wounds.",
+        "care": "Consult a grape disease specialist."
+    },
+    "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": {
+        "crop": "Grape",
+        "disease": "Leaf blight (Isariopsis Leaf Spot)",
+        "symptoms": "Brown leaf spots that can expand and cause leaf damage.",
+        "causes": "Fungal disease associated with Pseudocercospora vitis.",
+        "prevention": "Remove infected leaves and improve air circulation.",
+        "care": "Confirm the diagnosis with an agricultural expert."
+    },
+    "Grape___healthy": {
+        "crop": "Grape",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain good vineyard hygiene and monitor plants.",
+        "care": "Continue regular crop monitoring."
+    },
+    "Orange___Haunglongbing_(Citrus_greening)": {
+        "crop": "Orange",
+        "disease": "Haunglongbing (Citrus greening)",
+        "symptoms": "Yellow shoots, blotchy leaves and unevenly coloured fruit.",
+        "causes": "Candidatus Liberibacter asiaticus bacteria.",
+        "prevention": "Use healthy nursery plants and monitor for citrus psyllids.",
+        "care": "Contact a local horticulture expert for confirmation and advice."
+    },
+    "Peach___Bacterial_spot": {
+        "crop": "Peach",
+        "disease": "Bacterial spot",
+        "symptoms": "Small dark spots on leaves and fruit.",
+        "causes": "Xanthomonas arboricola bacteria.",
+        "prevention": "Use healthy planting material and maintain orchard hygiene.",
+        "care": "Consult a local agricultural expert."
+    },
+    "Peach___healthy": {
+        "crop": "Peach",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain good orchard care.",
+        "care": "Continue regular monitoring."
+    },
+    "Pepper,_bell___Bacterial_spot": {
+        "crop": "Pepper, bell",
+        "disease": "Bacterial spot",
+        "symptoms": "Small dark, water-soaked spots on leaves and fruit.",
+        "causes": "Xanthomonas bacteria.",
+        "prevention": "Use healthy seeds and avoid overhead watering.",
+        "care": "Consult a local agricultural expert."
+    },
+    "Pepper,_bell___healthy": {
+        "crop": "Pepper, bell",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain good crop hygiene.",
+        "care": "Continue regular monitoring."
+    },
+    "Potato___Early_blight": {
+        "crop": "Potato",
+        "disease": "Early blight",
+        "symptoms": "Brown spots with concentric rings on older leaves.",
+        "causes": "Alternaria solani fungus.",
+        "prevention": "Remove infected leaves and maintain crop hygiene.",
+        "care": "Consult a local agricultural expert."
+    },
+    "Potato___Late_blight": {
+        "crop": "Potato",
+        "disease": "Late blight",
+        "symptoms": "Water-soaked dark patches on leaves.",
+        "causes": "Phytophthora infestans.",
+        "prevention": "Use healthy seed potatoes and monitor crops.",
+        "care": "Seek expert advice promptly."
+    },
+    "Potato___healthy": {
+        "crop": "Potato",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain good crop care.",
+        "care": "Continue regular monitoring."
+    },
+    "Raspberry___healthy": {
+        "crop": "Raspberry",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain good airflow and orchard hygiene.",
+        "care": "Continue regular monitoring."
+    },
+    "Soybean___healthy": {
+        "crop": "Soybean",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Use healthy seeds and maintain field hygiene.",
+        "care": "Continue regular crop monitoring."
+    },
+    "Squash___Powdery_mildew": {
+        "crop": "Squash",
+        "disease": "Powdery mildew",
+        "symptoms": "White powder-like patches on leaves and stems.",
+        "causes": "Powdery mildew fungi.",
+        "prevention": "Maintain airflow and monitor plants regularly.",
+        "care": "Remove severely affected plant material and consult an agricultural expert."
+    },
+    "Strawberry___Leaf_scorch": {
+        "crop": "Strawberry",
+        "disease": "Leaf scorch",
+        "symptoms": "Dark purple spots on leaves that may merge into brown patches.",
+        "causes": "Diplocarpon earlianum fungus.",
+        "prevention": "Remove infected leaves and maintain good airflow.",
+        "care": "Consult a local agricultural expert."
+    },
+    "Strawberry___healthy": {
+        "crop": "Strawberry",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain clean growing conditions.",
+        "care": "Continue regular monitoring."
+    },
+    "Tomato___Bacterial_spot": {
+        "crop": "Tomato",
+        "disease": "Bacterial spot",
+        "symptoms": "Small dark leaf spots, sometimes with yellow halos.",
+        "causes": "Bacterial infection.",
+        "prevention": "Use healthy seeds and avoid working with wet plants.",
+        "care": "Confirm the disease before choosing treatment."
+    },
+    "Tomato___Early_blight": {
+        "crop": "Tomato",
+        "disease": "Early blight",
+        "symptoms": "Brown leaf spots with concentric rings.",
+        "causes": "Fungus Alternaria solani.",
+        "prevention": "Remove infected leaves and rotate crops.",
+        "care": "Seek local agricultural guidance."
+    },
+    "Tomato___Late_blight": {
+        "crop": "Tomato",
+        "disease": "Late blight",
+        "symptoms": "Water-soaked leaf patches that turn brown.",
+        "causes": "Phytophthora infestans.",
+        "prevention": "Improve airflow and avoid prolonged leaf wetness.",
+        "care": "Get prompt expert confirmation."
+    },
+    "Tomato___Leaf_Mold": {
+        "crop": "Tomato",
+        "disease": "Leaf Mold",
+        "symptoms": "Yellow patches on upper leaves and mould underneath.",
+        "causes": "Passalora fulva fungus.",
+        "prevention": "Improve ventilation and manage humidity.",
+        "care": "Remove badly affected leaves safely."
+    },
+    "Tomato___Septoria_leaf_spot": {
+        "crop": "Tomato",
+        "disease": "Septoria leaf spot",
+        "symptoms": "Small circular spots with pale centres.",
+        "causes": "Septoria lycopersici fungus.",
+        "prevention": "Remove infected debris and avoid overhead watering.",
+        "care": "Consult an agriculture expert."
+    },
+    "Tomato___Spider_mites Two-spotted_spider_mite": {
+        "crop": "Tomato",
+        "disease": "Spider mites Two-spotted spider mite",
+        "symptoms": "Fine leaf speckling and possible webbing.",
+        "causes": "Spider mite infestation.",
+        "prevention": "Monitor leaf undersides and conserve beneficial insects.",
+        "care": "Seek expert pest-management advice."
+    },
+    "Tomato___Target_Spot": {
+        "crop": "Tomato",
+        "disease": "Target Spot",
+        "symptoms": "Brown circular spots with target-like rings.",
+        "causes": "Corynespora cassiicola fungus.",
+        "prevention": "Improve airflow and remove infected debris.",
+        "care": "Confirm before treatment."
+    },
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+        "crop": "Tomato",
+        "disease": "Tomato Yellow Leaf Curl Virus",
+        "symptoms": "Yellowing, upward curling and stunted growth.",
+        "causes": "Tomato yellow leaf curl virus, commonly spread by whiteflies.",
+        "prevention": "Use healthy seedlings and monitor whiteflies.",
+        "care": "Consult a local agriculture officer."
+    },
+    "Tomato___Tomato_mosaic_virus": {
+        "crop": "Tomato",
+        "disease": "Tomato mosaic virus",
+        "symptoms": "Mosaic-like light and dark green leaf patterns.",
+        "causes": "Tomato mosaic virus.",
+        "prevention": "Use clean tools and healthy planting material.",
+        "care": "Remove infected plants according to local guidance."
+    },
+    "Tomato___healthy": {
+        "crop": "Tomato",
+        "disease": "healthy",
+        "symptoms": "No obvious disease symptoms.",
+        "causes": "No disease detected by visual assessment.",
+        "prevention": "Maintain good crop hygiene.",
+        "care": "Continue regular monitoring."
+    }
+}

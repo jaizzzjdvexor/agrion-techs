@@ -789,6 +789,201 @@ function applyWebsiteLanguage() {
 }
 
 document.getElementById("languageSelect").addEventListener("change", applyWebsiteLanguage);
+// TAMIL NADU CROP DATABASE
+const tamilNaduCrops = [
+
+{n:"Paddy (Rice)",c:"Cereals",s:"Kuruvai, Samba and Thaladi seasons",d:"Blast, bacterial leaf blight and sheath blight",p:"Use healthy seeds, suitable varieties and balanced nutrient management."},
+
+{n:"Maize",c:"Cereals",s:"Varies by district and irrigation",d:"Downy mildew, leaf blight and stalk rot",p:"Use healthy seeds, crop rotation and field sanitation."},
+
+{n:"Sorghum (Cholam)",c:"Cereals",s:"Rainy and post-rainy seasons",d:"Grain mould, anthracnose and downy mildew",p:"Use suitable varieties and avoid excessive crop moisture."},
+
+{n:"Pearl Millet (Cumbu)",c:"Millets",s:"Rainy and irrigated seasons",d:"Downy mildew and ergot",p:"Use resistant varieties and healthy seeds."},
+
+{n:"Finger Millet (Ragi)",c:"Millets",s:"Rainy and irrigated seasons",d:"Blast and leaf spot",p:"Use healthy seeds and maintain suitable crop spacing."},
+
+{n:"Foxtail Millet (Thinai)",c:"Millets",s:"Rainy season, depending on locality",d:"Leaf spot and grain mould",p:"Use clean seeds and remove heavily infected plant material."},
+
+{n:"Little Millet (Samai)",c:"Millets",s:"Rainy season",d:"Smuts and grain mould",p:"Use healthy seeds and follow crop rotation."},
+
+{n:"Kodo Millet (Varagu)",c:"Millets",s:"Rainy season",d:"Grain mould and leaf diseases",p:"Maintain field hygiene and use suitable varieties."},
+
+{n:"Black Gram (Urad)",c:"Pulses",s:"Rainy and post-rainy seasons",d:"Yellow mosaic, leaf crinkle and powdery mildew",p:"Use healthy seeds and manage whitefly vectors."},
+
+{n:"Green Gram (Moong)",c:"Pulses",s:"Rainy and summer seasons",d:"Yellow mosaic and powdery mildew",p:"Use suitable varieties and monitor insect vectors."},
+
+{n:"Red Gram (Pigeon Pea)",c:"Pulses",s:"Mainly rainy season",d:"Wilt and sterility mosaic",p:"Use tolerant varieties and practise crop rotation."},
+
+{n:"Cowpea",c:"Pulses",s:"Rainy and irrigated seasons",d:"Anthracnose and powdery mildew",p:"Use healthy seeds and remove infected crop residues."},
+
+{n:"Horse Gram",c:"Pulses",s:"Mostly post-rainy season",d:"Powdery mildew and leaf spot",p:"Use clean seeds and maintain field sanitation."},
+
+{n:"Bengal Gram (Chickpea)",c:"Pulses",s:"Cooler post-rainy season",d:"Fusarium wilt and Ascochyta blight",p:"Use healthy seeds and suitable disease-tolerant varieties."},
+
+{n:"Groundnut",c:"Oilseeds",s:"Rainy and irrigated seasons",d:"Tikka leaf spot, rust and stem rot",p:"Use healthy seeds, crop rotation and field sanitation."},
+
+{n:"Sesame (Gingelly)",c:"Oilseeds",s:"Rainy and summer seasons",d:"Phyllody and leaf spot",p:"Use healthy seeds and monitor insect vectors."},
+
+{n:"Sunflower",c:"Oilseeds",s:"Rainy and irrigated seasons",d:"Alternaria leaf blight and downy mildew",p:"Use healthy seeds and suitable crop spacing."},
+
+{n:"Castor",c:"Oilseeds",s:"Rainy season",d:"Alternaria leaf spot and root rot",p:"Avoid waterlogging and remove infected plant debris."},
+
+{n:"Coconut",c:"Oilseeds",s:"Perennial crop",d:"Bud rot, stem bleeding and leaf diseases",p:"Maintain palm health, drainage and field sanitation."},
+
+{n:"Cotton",c:"Commercial Crops",s:"Rainy and irrigated seasons",d:"Bacterial blight, wilt and leaf curl",p:"Use healthy seeds and monitor insect vectors."},
+
+{n:"Sugarcane",c:"Commercial Crops",s:"Planting seasons vary by region",d:"Red rot, smut and wilt",p:"Use healthy setts and disease-free planting material."},
+
+{n:"Banana",c:"Fruits",s:"Planting depends on irrigation and locality",d:"Panama wilt, Sigatoka leaf spot and bunchy top",p:"Use healthy planting material and maintain drainage."},
+
+{n:"Mango",c:"Fruits",s:"Perennial fruit crop",d:"Anthracnose, powdery mildew and dieback",p:"Prune affected branches and maintain orchard hygiene."},
+
+{n:"Guava",c:"Fruits",s:"Perennial fruit crop",d:"Wilt, anthracnose and fruit rot",p:"Use healthy planting material and remove diseased fruits."},
+
+{n:"Papaya",c:"Fruits",s:"Can be grown in suitable warm conditions",d:"Papaya ringspot and foot rot",p:"Use healthy seedlings and manage insect vectors."},
+
+{n:"Grapes",c:"Fruits",s:"Season varies by growing region",d:"Downy mildew, powdery mildew and anthracnose",p:"Maintain canopy airflow and monitor leaf infections."},
+
+{n:"Jackfruit",c:"Fruits",s:"Perennial fruit crop",d:"Fruit rot and leaf spot",p:"Maintain orchard hygiene and remove infected fruits."},
+
+{n:"Sapota",c:"Fruits",s:"Perennial fruit crop",d:"Leaf spot and fruit rot",p:"Maintain tree health and remove affected fruits."},
+
+{n:"Tomato",c:"Vegetables",s:"Different seasons depending on district",d:"Early blight, late blight and bacterial wilt",p:"Use healthy seedlings and practise crop rotation."},
+
+{n:"Brinjal (Eggplant)",c:"Vegetables",s:"Can be cultivated across several seasons",d:"Bacterial wilt and Phomopsis blight",p:"Use healthy seedlings and remove infected plants."},
+
+{n:"Chilli",c:"Vegetables",s:"Rainy and irrigated seasons",d:"Anthracnose, powdery mildew and leaf curl",p:"Use healthy seedlings and monitor insect vectors."},
+
+{n:"Okra (Ladies Finger)",c:"Vegetables",s:"Warm-season crop",d:"Yellow vein mosaic and powdery mildew",p:"Use suitable varieties and manage whitefly."},
+
+{n:"Onion",c:"Vegetables",s:"Varies by region and variety",d:"Purple blotch and basal rot",p:"Use healthy bulbs or seedlings and avoid waterlogging."},
+
+{n:"Tapioca (Cassava)",c:"Vegetables",s:"Planting depends on rainfall and irrigation",d:"Cassava mosaic and root rot",p:"Use healthy stem cuttings and remove infected plants."},
+
+{n:"Potato",c:"Vegetables",s:"Cool-season cultivation in suitable areas",d:"Early blight and late blight",p:"Use healthy seed tubers and maintain field sanitation."},
+
+{n:"Drumstick (Moringa)",c:"Vegetables",s:"Perennial or seasonal cultivation",d:"Leaf spot and root rot",p:"Maintain drainage and remove infected branches."},
+
+{n:"Turmeric",c:"Spices",s:"Seasonal planting, often linked to monsoon",d:"Rhizome rot and leaf blotch",p:"Use healthy rhizomes and well-drained soil."},
+
+{n:"Ginger",c:"Spices",s:"Usually planted during rainy-season periods",d:"Soft rot and bacterial wilt",p:"Use healthy seed rhizomes and avoid waterlogging."},
+
+{n:"Coriander",c:"Spices",s:"Mostly cooler-season cultivation",d:"Stem gall and powdery mildew",p:"Use clean seeds and suitable crop spacing."},
+
+{n:"Garlic",c:"Spices",s:"Cooler-season cultivation in suitable locations",d:"Purple blotch and basal rot",p:"Use healthy cloves and avoid excess moisture."},
+
+{n:"Tea",c:"Plantation Crops",s:"Perennial crop",d:"Blister blight and root diseases",p:"Maintain plantation hygiene and suitable shade."},
+
+{n:"Coffee",c:"Plantation Crops",s:"Perennial crop",d:"Coffee leaf rust and berry diseases",p:"Maintain airflow and monitor disease symptoms."},
+
+{n:"Cashew",c:"Plantation Crops",s:"Perennial crop",d:"Anthracnose and dieback",p:"Prune affected branches and maintain orchard hygiene."},
+
+{n:"Arecanut",c:"Plantation Crops",s:"Perennial crop",d:"Fruit rot and yellow leaf disease",p:"Maintain drainage and remove diseased plant parts."},
+
+{n:"Rubber",c:"Plantation Crops",s:"Perennial crop",d:"Abnormal leaf fall and powdery mildew",p:"Maintain plantation sanitation and monitor leaf health."}
+
+];
+
+// Crops with related classes in the current PlantVillage model.
+// This does NOT guarantee accurate detection of every local variety or disease.
+const existingModelCrops = [
+    "Maize", "Grapes", "Tomato", "Potato",
+    "Orange", "Peach", "Bell Pepper", "Soybean"
+];
+
+function displayCrops() {
+    const search = document.getElementById("cropSearch")
+        .value.toLowerCase().trim();
+
+    const category = document.getElementById("cropCategory").value;
+    const list = document.getElementById("cropList");
+
+    list.replaceChildren();
+
+    const filtered = tamilNaduCrops.filter(crop => {
+        const matchesSearch =
+            crop.n.toLowerCase().includes(search) ||
+            crop.d.toLowerCase().includes(search);
+
+        const matchesCategory =
+            category === "all" || crop.c === category;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    document.getElementById("cropCount").textContent =
+        "Showing " + filtered.length + " of " +
+        tamilNaduCrops.length + " crops";
+
+    filtered.forEach(crop => {
+        const card = document.createElement("div");
+        card.className = "crop-card";
+
+        const title = document.createElement("h3");
+        title.textContent = "🌱 " + crop.n;
+
+        const categoryText = document.createElement("p");
+        categoryText.textContent = "Category: " + crop.c;
+
+        const season = document.createElement("p");
+        season.textContent = "Growing season: " + crop.s;
+
+        const disease = document.createElement("p");
+        disease.textContent = "Common diseases: " + crop.d;
+
+        const prevention = document.createElement("p");
+        prevention.textContent = "Prevention: " + crop.p;
+
+        const status = document.createElement("p");
+        status.className = "crop-status";
+
+        const cropKey = crop.n.toLowerCase();
+
+        const relatedModelClass = {
+            "maize": "Maize",
+            "grapes": "Grapes",
+            "tomato": "Tomato",
+            "potato": "Potato",
+            "orange": "Orange",
+            "peach": "Peach",
+            "bell pepper": "Bell Pepper",
+            "soybean": "Soybean"
+        };
+
+        if (relatedModelClass[cropKey]) {
+            status.textContent =
+                "AI status: Related model class exists. " +
+                "Local disease accuracy is not guaranteed.";
+        } else {
+            status.textContent =
+                "AI status: Additional AI training required.";
+        }
+
+        card.append(
+            title,
+            categoryText,
+            season,
+            disease,
+            prevention,
+            status
+        );
+
+        list.appendChild(card);
+    });
+
+    if (filtered.length === 0) {
+        list.textContent = "No matching crops found.";
+    }
+}
+
+document.getElementById("cropSearch")
+    .addEventListener("input", displayCrops);
+
+document.getElementById("cropCategory")
+    .addEventListener("change", displayCrops);
+
+displayCrops();
+
 applyWebsiteLanguage();
 </script>
 </body>
